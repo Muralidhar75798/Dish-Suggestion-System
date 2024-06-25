@@ -20,7 +20,13 @@ To get started with the project, follow these steps:
    pip install -r requirements.txt
 
 4. Apply database migrations:
+   python manage.py makemigrations
    python manage.py migrate
+   python manage.py shell
+   shell cmds:
+   >>> from search.data_import import populate_data
+   >>> populate_data()
+
 
 5. Start the development server:
    python manage.py runserver
