@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} TasteQuest {% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-FRSUkIHJT2Tg1HU/0JpT8+eYtCGKVlW0WrmqE4kgF7+ljSC8dvP0nca8ts8UwJB3xQuw8Ka0lWDeYBAlReo9Gg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Reset and General Styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background-color: #f0f0f0;
+            color: #333; /* Default text color */
+            scroll-behavior: smooth; /* Smooth scrolling behavior */
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            text-transform: capitalize; /* Uppercase logo text */
+            letter-spacing: 2px; /* Increased letter spacing */
+            color: #fff; /* Logo text color */
+            text-decoration: none; /* Remove underline */
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        nav ul li {
+            margin-right: 20px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: #ffd700; /* Hover color */
+        }
+
+        /* Main Content Styles */
+        main {
+            padding-top: 80px; /* Ensure content is below the fixed header */
+            background-color: #fff;
+            min-height: calc(100vh - 120px); /* Minimum height for content */
+            padding-bottom: 20px;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        footer p {
+            margin: 0;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        /* Hero Section Styles */
+        .hero {
+            background-image: url('path/to/hero-background.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            text-align: center;
+            padding: 100px 20px;
+        }
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 10px;
+            }
+            .logo {
+                font-size: 24px;
+            }
+            nav ul li {
+                margin-right: 10px;
+            }
+            .hero h1 {
+                font-size: 32px;
+            }
+            .hero p {
+                font-size: 18px;
+            }
+        }
+    </style>
+    {% block styles %}{% endblock %}
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="/" class="logo">TasteQuest</a>
+            <nav>
+                <ul>
+                    <li><a href="/" class="nav-link">Home</a></li>
+                    <li><a href="/about/" class="nav-link">About</a></li>
+                    <li><a href="/contact/" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; {% now "Y" %} TasteQuest . All rights reserved.</p>
+    </footer>
+</body>
+</html>

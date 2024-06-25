@@ -1,0 +1,182 @@
+<!-- templates/search/search.html -->
+{% extends "base_generic.html" %}
+
+{% block styles %}
+<style>
+    /* Custom styles for search page */
+    .search-container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+    .search-container h1 {
+        font-size: 28px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+    .search-container form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    .search-container input[type="text"] {
+        width: calc(100% - 100px);
+        padding: 12px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: border-color 0.3s ease;
+    }
+    .search-container input[type="text"]:focus {
+        border-color: #4CAF50;
+    }
+    .search-container button[type="submit"] {
+        padding: 12px 30px;
+        font-size: 16px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease;
+    }
+    .search-container button[type="submit"]:hover {
+        background-color: #45a049;
+    }
+    .search-results {
+        margin-top: 30px;
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .search-results h2 {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+    .search-results ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    .search-results li {
+        background-color: #fff;
+        padding: 15px;
+        margin-bottom: 15px;
+        border: 1px solid #eee;
+        border-radius: 6px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .search-results li:first-child {
+        margin-top: 0;
+    }
+    .recommendations {
+        margin-top: 30px;
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .recommendations h2 {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+    .recommendations ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    .recommendations li {
+        background-color: #fff;
+        padding: 15px;
+        margin-bottom: 15px;
+        border: 1px solid #eee;
+        border-radius: 6px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .recommendations li:first-child {
+        margin-top: 0;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .search-container {
+            padding: 10px;
+        }
+        .search-container h1 {
+            font-size: 24px;
+        }
+        .search-container form {
+            flex-direction: column;
+        }
+        .search-container input[type="text"] {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .search-container button[type="submit"] {
+            width: 100%;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="search-container">
+    <h1>Search for a Dish</h1>
+    <form method="get">
+        <input type="text" name="q" value="{{ query }}" placeholder="Search dishes...">
+        <button type="submit">Search</button>
+    </form>
+    <div class="recommendations">
+        <h2>Recommendations</h2>
+        <!-- <ul>
+            {% if recommendations %}
+            {% for recommendation in recommendations %}
+            <li>{{ recommendation }}</li>
+            {% endfor %}
+            {% else %}
+            <li>No recommendations found</li>
+            {% endif %}
+        </ul> -->
+        <ul>
+            {% if recommendations_dict %}
+            {% for restaurant, data in recommendations_dict.items %}
+            <li>
+                <strong>{{ restaurant }}</strong> (Rating: 
+                {% if data.aggregate_rating %}
+                    {{ data.aggregate_rating }}
+                {% else %}
+                    No Rating
+                {% endif %}):
+                {% for item in data.items %}
+                    {{ item }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </li>
+            {% endfor %}
+            {% else %}
+            <li>No recommendations found</li>
+            {% endif %}
+        </ul>
+    </div>
+    <div class="search-results">
+        <h2>Search Results</h2>
+        <ul>
+            {% for restaurant in results %}
+            <li>{{ restaurant.name }} - {{ restaurant.items }}</li>
+            {% empty %}
+            <li>No results found</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
